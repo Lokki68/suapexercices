@@ -1,3 +1,4 @@
+import type { Scenario } from "@/types/Types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -5,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const dump_scenario = {
+export const dump_scenario: Scenario = {
   situation:
     "Intervention sur un chantier de construction en extérieur, à 14h30. Le temps est nuageux avec un vent léger de 15 km/h et une température de 12°C. La victime, un ouvrier de 35 ans, est tombée d'une échelle d'environ 3 mètres de hauteur et présente une douleur thoracique et à la jambe gauche. Les collègues ont appelé le 18 immédiatement et ont sécurisé la zone en attendant l'arrivée des secours.",
   bilan_initial: {

@@ -1,4 +1,5 @@
 import type { Scenario } from "@/types/Types";
+import Bilan from "./Bilan";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ScrollArea } from "./ui/scroll-area";
 import { Separator } from "./ui/separator";
@@ -36,10 +37,15 @@ export default function ScenarioDisplay({ scenario }: ScenarioProps) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <h4 className="font-semibold text-gray-200 mb-2">Bilan Initial</h4>
-          <pre className="bg-gray-900 text-gray-100 text-sm rounded-lg p-3 overflow-auto">
-            {JSON.stringify(scenario.bilan_initial, null, 2)}
-          </pre>
+          <Bilan
+            title="Bilan Initial"
+            fc={scenario.bilan_initial.fc}
+            fr={scenario.bilan_initial.fr}
+            ta={scenario.bilan_initial.ta}
+            spo2={scenario.bilan_initial.spo2}
+            temp={scenario.bilan_initial.temp}
+            conscience={scenario.bilan_initial?.conscience}
+          />
 
           <Separator className="bg-gray-700 my-4" />
 
@@ -50,8 +56,14 @@ export default function ScenarioDisplay({ scenario }: ScenarioProps) {
                 <li key={index} className="border-l-4 border-red-500 pl-3">
                   <p className="text-gray-300">
                     <strong>{step.minute} min :</strong>
-                    {step.description}
                   </p>
+                  <Bilan
+                    fc={step.fc}
+                    fr={step.fr}
+                    ta={step.ta}
+                    spo2={step.spo2}
+                    description={step.description}
+                  />
                 </li>
               ))}
             </ul>

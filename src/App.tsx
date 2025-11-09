@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "./components/ui/select";
 import { useScenarioGenerator } from "./hooks/useScenarioGenerator";
+import { dump_scenario } from "./lib/utils";
 
 function App() {
   const { scenario, loading, error, generateScenario } = useScenarioGenerator();
@@ -21,6 +22,8 @@ function App() {
   const handleGenerate = () => {
     generateScenario(type);
   };
+
+  const scenarioTest = dump_scenario;
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 flex flex-col items-center p-8">
       <div className="max-w-5xl w-full space-y-8">
@@ -73,7 +76,9 @@ function App() {
 
         {error && <ErrorDisplay error={error} />}
 
-        {scenario && <ScenarioDisplay scenario={scenario} />}
+        <ScenarioDisplay scenario={scenarioTest} />
+
+        {/* {scenario && <ScenarioDisplay scenario={scenario} />} */}
       </div>
       {!scenario && (
         <Card className="bg-gray-800/60 backdrop-blur border-gray-700 mt-auto">
