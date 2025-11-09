@@ -1,4 +1,4 @@
-import { Ambulance, Loader2 } from "lucide-react";
+import { Ambulance, Info, Loader2 } from "lucide-react";
 import { useState } from "react";
 import ErrorDisplay from "./components/ErrorDisplay";
 import ScenarioDisplay from "./components/ScenarioDisplay";
@@ -13,14 +13,10 @@ import {
   SelectValue,
 } from "./components/ui/select";
 import { useScenarioGenerator } from "./hooks/useScenarioGenerator";
-import { dump_scenario } from "./lib/utils";
-import type { Scenario } from "./types/Types";
 
 function App() {
   const { scenario, loading, error, generateScenario } = useScenarioGenerator();
   const [type, setType] = useState<string>("malaise");
-
-  const scenario_test: Scenario = dump_scenario;
 
   const handleGenerate = () => {
     generateScenario(type);
@@ -77,12 +73,21 @@ function App() {
 
         {error && <ErrorDisplay error={error} />}
 
-        {scenario ? (
-          <ScenarioDisplay scenario={scenario} />
-        ) : (
-          <ScenarioDisplay scenario={scenario_test} />
-        )}
+        {scenario && <ScenarioDisplay scenario={scenario} />}
       </div>
+      {!scenario && (
+        <Card className="bg-gray-800/60 backdrop-blur border-gray-700 mt-auto">
+          <CardContent>
+            <p className="text-gray-300 flex gap-2 text-sm items-center">
+              <span>
+                <Info size={16} />
+              </span>
+              Selectionné un type d'intervention et Cliquer sur Générer une
+              intervention
+            </p>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
