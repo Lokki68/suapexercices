@@ -76,9 +76,9 @@ function App() {
 
         {error && <ErrorDisplay error={error} />}
 
-        <ScenarioDisplay scenario={scenarioTest} />
+        {/* <ScenarioDisplay scenario={scenarioTest} /> */}
 
-        {/* {scenario && <ScenarioDisplay scenario={scenario} />} */}
+        {scenario && <ScenarioDisplay scenario={scenario} />}
       </div>
       {!scenario && (
         <Card className="bg-gray-800/60 backdrop-blur border-gray-700 mt-auto">
