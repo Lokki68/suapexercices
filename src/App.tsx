@@ -12,14 +12,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./components/ui/select";
+import { Textarea } from "./components/ui/textarea";
 import { useScenarioGenerator } from "./hooks/useScenarioGenerator";
 
 function App() {
   const { scenario, loading, error, generateScenario } = useScenarioGenerator();
   const [type, setType] = useState<string>("malaise");
+  const [contraintes, setContraintes] = useState<string>("");
 
   const handleGenerate = () => {
-    generateScenario(type);
+    generateScenario(type, contraintes);
   };
 
   return (
@@ -35,26 +37,37 @@ function App() {
           <p>Simulateur de cas de secours à personne - entraînement pompier</p>
         </header>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-          <div className="w-[250px]">
-            <Label className="text-gray-300">Type d'intervention</Label>
-            <Select value={type} onValueChange={setType}>
-              <SelectTrigger className="bg-gray-800 border-gray-700 text-gray-100 mt-1">
-                <SelectValue placeholder="Choisir un type" />
-              </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-700 text-gray-100">
-                <SelectItem value="malaise">🧍‍♂️ Malaise</SelectItem>
-                <SelectItem value="traumatisme">🤕 Traumatisme</SelectItem>
-                <SelectItem value="inconscience">💤 Inconscience</SelectItem>
-                <SelectItem value="hemorragie">🩸 Hémorragie</SelectItem>
-                <SelectItem value="detresse respiratoire">
-                  😮‍💨 Détresse respiratoire
-                </SelectItem>
-                <SelectItem value="arret cardio-respiratoire">
-                  ❤️‍🔥 Arrêt cardio-respiratoire
-                </SelectItem>
-              </SelectContent>
-            </Select>
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="flex flex-col md:flex-row items-start justify-center gap-4">
+            <div className="w-[250px]">
+              <Label className="text-gray-300">Type d'intervention</Label>
+              <Select value={type} onValueChange={setType}>
+                <SelectTrigger className="bg-gray-800 border-gray-700 text-gray-100 mt-1">
+                  <SelectValue placeholder="Choisir un type" />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-800 border-gray-700 text-gray-100">
+                  <SelectItem value="malaise">🧍‍♂️ Malaise</SelectItem>
+                  <SelectItem value="traumatisme">🤕 Traumatisme</SelectItem>
+                  <SelectItem value="inconscience">💤 Inconscience</SelectItem>
+                  <SelectItem value="hemorragie">🩸 Hémorragie</SelectItem>
+                  <SelectItem value="detresse respiratoire">
+                    😮‍💨 Détresse respiratoire
+                  </SelectItem>
+                  <SelectItem value="arret cardio-respiratoire">
+                    ❤️‍🔥 Arrêt cardio-respiratoire
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="w-[250px]">
+              <Label className="text-gray-300">Contraintes particulières</Label>
+              <Textarea
+                className="bg-gray-800 border-gray-700 text-gray-10 mt-1"
+                value={contraintes}
+                onChange={(e) => setContraintes(e.target.value)}
+                placeholder="Ajouter une contrainte particulière"
+              ></Textarea>
+            </div>
           </div>
           <Button
             onClick={handleGenerate}

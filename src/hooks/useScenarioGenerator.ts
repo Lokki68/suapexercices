@@ -5,7 +5,10 @@ interface UseScenarioGeneratorResult {
   scenario: Scenario | null;
   loading: boolean;
   error: string | null;
-  generateScenario: (typeIntervention: string) => Promise<void>;
+  generateScenario: (
+    typeIntervention: string,
+    contraintes?: string
+  ) => Promise<void>;
 }
 
 export function useScenarioGenerator(): UseScenarioGeneratorResult {
@@ -13,12 +16,15 @@ export function useScenarioGenerator(): UseScenarioGeneratorResult {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const generateScenario = async (typeIntervention: string) => {
+  const generateScenario = async (
+    typeIntervention: string,
+    contraintes?: string
+  ) => {
     setLoading(true);
     setError(null);
 
     const prompt = `
-    Tu es un formateur en secourisme du SDIS. 
+    Tu es un formateur en secourisme du SDIS68.
     Crée un cas pratique d'entraînement pour des pompiers intervenant sur une situation de secours à personne.
     ${
       typeIntervention
@@ -26,8 +32,14 @@ export function useScenarioGenerator(): UseScenarioGeneratorResult {
         : ""
     }
 
+    ${
+      contraintes
+        ? `Containtes particulières a prendre en compte : ${contraintes}`
+        : ""
+    }
+
     Fournis :
-    - Une description réaliste (lieu, contexte, météo, heure, etc.)
+    - Une description réaliste (lieu, contexte, heure, etc.)
     - Un bilan initial : conscience (AVPU), FC, FR, TA, SpO2, température.
     - Une évolution des constantes sur 3 étapes (5, 10, 15 min).
     - Un objectif pédagogique clair.
